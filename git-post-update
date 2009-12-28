@@ -1,0 +1,51 @@
+#!/bin/bash
+# Simple post-update script for many sites with git repositories
+#    Copyright (C) 2009  Marcin Karpezo
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+SITE_NAME="$1"
+SITE_DIR="$HOME"/www/"$SITE_NAME"
+SCRITPT_NAME="$2"
+check() {
+    if [ "$?" == "0" ]; then
+        echo -e "[OK!]"
+    else
+        echo -e "[ERROR]"
+        exit 255
+    fi
+}
+
+unset GIT_DIR
+echo -e "git-post-update  Copyright (C) 2009  Marcin Karpezo
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under certain conditions; read COPYING file for details.\n"
+
+if [ "$SITE_NAME" == "help" ]; then
+    echo -e "USAGE:
+    \t$0 name_of_website_catalog name_of_website_(fcgi)script"
+    exit 0
+else
+    echo "Entering $SITE_NAME directory..."
+    cd "$SITE_DIR"
+    check
+    echo "Getting new files..."
+    git pull origin master
+    check
+    echo "Restarting $SITE_NAME..."
+    sh "$HOME"/"$SCRITPT_NAME"
+    check
+fi
+
