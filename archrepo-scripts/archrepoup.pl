@@ -121,7 +121,7 @@ sub copy {
             &unlock;
             exit 1;
         } else {
-            print("Copying... ");
+            print("Copying:");
             &scp("$pkg2up", $dest) or &unlock and die "Can't upload to the server! $!";
             print("[OK!]\n");
         }
@@ -133,7 +133,7 @@ sub copy {
 }
 
 sub sync {
-    print("Synchronizing...\n");
+    print("Synchronizing:\n");
     my $pid = &sshopen3($login, $writer, $reader, $error, "archrepo_manage.py") or die "Can't synchronize! $!";
     waitpid $pid, 0;
     while (<$reader>) {
@@ -174,6 +174,8 @@ sub rmpkg {
 }
 
 my $warning = <<END;
+Archrepoup - simple script for copying and synchronising Your packages to ArchRepo! 
+
 Copyright (C) 2010  Marcin Karpezo
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it 
