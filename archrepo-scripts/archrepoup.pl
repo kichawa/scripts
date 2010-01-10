@@ -51,7 +51,7 @@ Usage: $0 [option] [pkg dir/file]
     -u, --user      Set developer nickname 
     
 WARNING: To run this script successfully Your RSA pub key has to be added on repository server.
-Please send any bug reports to sirmacik at archrepo dot net
+Please send any bug reports to <sirmacik at gmail dot com>
 EOM
     print($helpmsg);
     exit 0;
@@ -172,6 +172,15 @@ sub rmpkg {
         }
     }
 }
+
+my $warning = <<END;
+Copyright (C) 2010  Marcin Karpezo
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it 
+under certain conditions; Read COPYING file for details.
+
+END
+print($warning);
 
 # If started without arguments run help
 unless ($ARGV[0]) {
