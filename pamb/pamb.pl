@@ -38,7 +38,7 @@ sub info{
 pamb is a simple cli url shortener for goo.gl service
 
 Copyright (C) 2011, Marcin Karpezo 
-3This program comes with ABSOLUTELY NO WARRANTY. 
+This program comes with ABSOLUTELY NO WARRANTY. 
 This is free software, and you are welcome 
 to redistribute it under certain conditions.
 For details see COPYING file.
@@ -113,3 +113,9 @@ if ( $decode ) {
     helpmsg();
 }
 
+### TODO ###
+#
+# - authentication
+# - history
+#
+############
