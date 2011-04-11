@@ -17,7 +17,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Settings 
-CHPATH="/media/crux" # chroot mountpoint
+CHPATH="/mnt" # chroot mountpoint
 ROOTPART="/dev/sda1" # chroot root partition 
 
 
@@ -57,16 +57,17 @@ else
     echo -e "      /sys..."
     mount -t sysfs none $CHPATH/sys
     check
-    echo -e "      /home..."
-    mount --bind /home $CHPATH/home
-    check 
+#    echo -e "      /home..."
+#    mount --bind /home $CHPATH/home
+#    check 
     
     echo "Copying resolv.conf..."
     cp -L /etc/resolv.conf $CHPATH/etc/
 fi
 
 echo "Entering chroot environment..."
-chroot $CHPATH /bin/bash
+chroot $CHPATH /bin/sh
+
 
 read -p "Unmount partitions? [Y/n] " mount_answer
 if [ "$mount_answer" = "n" ]; then
@@ -86,9 +87,9 @@ else
     echo -e "      /sys..."
     umount $CHPATH/sys
     check
-    echo -e "      /home..."
-    umount $CHPATH/home
-    check
+#    echo -e "      /home..."
+#    umount $CHPATH/home
+#    check
     read -p "Unmount root? [Y/n] " root_answer
     if [ "$root_answer" = "n" ]; then
         echo "No!"

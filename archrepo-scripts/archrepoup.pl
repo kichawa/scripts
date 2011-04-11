@@ -43,16 +43,16 @@ $error->autoflush(1);
 
 sub help {
     my $helpmsg = <<EOM;
-Simple script for copying and synchronising Your packages to ArchRepo! 
-Usage: $0 [option] [pkg dir/file]
-
-    -h, --help      Displays this message
-        --sync      Synchronize package database 
-    -u, --user      Set developer nickname 
-    
-WARNING: To run this script successfully Your RSA pub key has to be added on repository server.
-Please send any bug reports to <sirmacik at gmail dot com>
-EOM
+    Simple script for copying and synchronising Your packages to ArchRepo! 
+      Usage: $0 [option] [pkg dir/file]
+      
+      -h, --help      Displays this message
+          --sync      Synchronize package database 
+      -u, --user      Set developer nickname 
+      
+    WARNING: To run this script successfully Your RSA pub key has to be added on repository server.
+    Please send any bug reports to <sirmacik at gmail dot com>
+    EOM
     print($helpmsg);
     exit 0;
 }
@@ -71,7 +71,7 @@ sub unlock {
     my $pid = &sshopen3($login, $writer, $reader, $error, "rm $onserv/lock") or die "Can't unlock! $!";
     waitpid $pid, 0;
     print("[OK!]\n");
-    }
+}
 
 sub files {
     # Checks if there are packages in pkgdir
@@ -105,7 +105,7 @@ sub copy {
             &unlock;
             exit 1;
         } else {
-           print("Copying... \n");
+	    print("Copying... \n");
             foreach my $file (@files) {
                 print("$file... ");
                 &scp("$pkg2up/$file", $dest) or &unlock and die "Can't upload to the server! $!";
@@ -175,19 +175,19 @@ sub rmpkg {
 
 my $warning = <<END;
 Archrepoup - simple script for copying and synchronising Your packages to ArchRepo! 
-
-Copyright (C) 2010  Marcin Karpezo
-This program comes with ABSOLUTELY NO WARRANTY.
-This is free software, and you are welcome to redistribute it 
-under certain conditions; Read COPYING file for details.
-
-END
-print($warning);
+    
+    Copyright (C) 2010  Marcin Karpezo
+    This program comes with ABSOLUTELY NO WARRANTY.
+    This is free software, and you are welcome to redistribute it 
+    under certain conditions; Read COPYING file for details.
+    
+    END
+    print($warning);
 
 # If started without arguments run help
 unless ($ARGV[0]) {
-        &help;
-    }
+    &help;
+}
 if ($user eq "dziq" or $user eq "sirmacik" or $user eq "virhilo") {
     &lock;
     &copy;
@@ -200,3 +200,4 @@ if ($user eq "dziq" or $user eq "sirmacik" or $user eq "virhilo") {
     &help;
     exit 1;
 }
+
